@@ -68,7 +68,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('users', UsersController::class);
-Route::post('multiStep', [UsersController::class, 'store']);
 
 /**
  * Socialite login using Google service

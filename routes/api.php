@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\SampleDataController;
+use App\Http\Controllers\MultiStepController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,3 +35,5 @@ Route::post('/verify_token', [AuthenticatedSessionController::class, 'apiVerifyT
 
 Route::get('/users', [SampleDataController::class, 'getUsers']);
 
+
+Route::post('/multiStep', [MultiStepController::class, 'store']);

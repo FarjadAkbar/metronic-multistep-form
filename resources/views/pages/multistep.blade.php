@@ -124,7 +124,7 @@
 
                                         <!--begin::Input-->
                                         <input type="text" class="form-control bg-transparent" name="name"
-                                            placeholder="" value="" />
+                                            placeholder="" value="" required />
                                         <div class="invalid-feedback"></div>
                                         <!--end::Input-->
                                     </div>
@@ -138,7 +138,7 @@
 
                                         <!--begin::Input-->
                                         <input type="email" class="form-control bg-transparent" name="email"
-                                            placeholder="" value="" />
+                                            placeholder="" value="" required />
                                         <div class="invalid-feedback"></div>
                                         <!--end::Input-->
                                     </div>
@@ -157,7 +157,7 @@
 
                                         <!--begin::Input-->
                                         <input type="tel" class="form-control bg-transparent" name="phone"
-                                            placeholder="" value="" />
+                                            placeholder="" value="" required />
                                         <div class="invalid-feedback"></div>
                                         <!--end::Input-->
                                     </div>
@@ -191,8 +191,8 @@
                                         <!--end::Label-->
 
                                         <!--begin::Input-->
-                                        <input type="url" class="form-control bg-transparent" name="linkedIn"
-                                            placeholder="" value="" />
+                                        <input type="url" class="form-control bg-transparent" name="url"
+                                            placeholder="" value="" required />
                                         <div class="invalid-feedback"></div>
                                         <!--end::Input-->
                                     </div>
@@ -260,6 +260,11 @@
             return urlRegex.test(url);
         }
 
+        function isValidPhone(phone) {
+            const phoneRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
+            return phoneRegex.test(phone);
+        }
+
 
         function validateMessage(field, error, message) {
             field.classList.add('is-invalid');
@@ -267,27 +272,50 @@
             error.textContent = field.validationMessage;
         }
 
+        // function checkValidity(field, error) {
+        //     if (field.value.length === 0) {
+        //         validateMessage(field, error, 'Please enter ');
+        //     } else {
+        //         field.classList.remove('is-invalid');
+        //         field.setCustomValidity('');
+        //         error.textContent = '';
+
+        //         if (field.name === "email") {
+        //             if (!isValidEmail(field.value)) {
+        //                 validateMessage(field, error, 'Please enter valid ');
+        //             }
+        //         }
+
+        //         if (field.name === "url") {
+        //             if (!isValidUrl(field.value)) {
+        //                 validateMessage(field, error, 'Please enter valid ');
+        //             };
+        //         }
+        //     }
+        // }
+
         function checkValidity(field, error) {
-            if (field.value.length === 0) {
-                validateMessage(field, error, 'Please enter ');
-            } else {
-                field.classList.remove('is-invalid');
-                field.setCustomValidity('');
-                error.textContent = '';
+    if (field.hasAttribute('required') && field.value.length === 0) {
+        validateMessage(field, error, 'Please enter ');
+    } else {
+        field.classList.remove('is-invalid');
+        field.setCustomValidity('');
+        error.textContent = '';
 
-                if (field.name === "email") {
-                    if (!isValidEmail(field.value)) {
-                        validateMessage(field, error, 'Please enter valid ');
-                    }
-                }
-
-                if (field.name === "url") {
-                    if (!isValidUrl(field.value)) {
-                        validateMessage(field, error, 'Please enter valid ');
-                    };
-                }
+        if (field.name === "email") {
+            if (!isValidEmail(field.value)) {
+                validateMessage(field, error, 'Please enter valid ');
             }
         }
+
+        if (field.name === "url") {
+            if (!isValidUrl(field.value)) {
+                validateMessage(field, error, 'Please enter valid ');
+            };
+        }
+    }
+}
+
 
         const formFields = document.querySelectorAll('.form-control');
         formFields.forEach((field, i) => {
@@ -371,8 +399,8 @@
             const nextNav = currentNav.nextElementSibling;
 
 
-            const previousStep = nextStep.previousElementSibling;
-            const previousNav = nextNav.previousElementSibling;
+            // const previousStep = nextStep.previousElementSibling;
+            // const previousNav = nextNav.previousElementSibling;
 
 
             const formFields = currentStep.querySelectorAll(".form-control");
@@ -384,11 +412,12 @@
             $(".stepper [data-kt-stepper-action=submit]").hide();
             $(".stepper [data-kt-stepper-action=next]").show();
 
-            if (previousStep !== null) {
+            if (currentStep !== null) {
                 $(".stepper [data-kt-stepper-action=previous]").show();
             }
 
-            if (nextStep.nextElementSibling === null) {
+            
+            if (nextStep === null) {
                 $(".stepper [data-kt-stepper-action=submit]").show();
                 $(".stepper [data-kt-stepper-action=next]").hide();
             }
