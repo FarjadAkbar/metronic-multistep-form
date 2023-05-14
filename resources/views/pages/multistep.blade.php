@@ -261,7 +261,7 @@
         }
 
         function isValidPhone(phone) {
-            const phoneRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
+            const phoneRegex = /^[+()\-0-9\s]+$/;
             return phoneRegex.test(phone);
         }
 
@@ -302,13 +302,19 @@
         field.setCustomValidity('');
         error.textContent = '';
 
-        if (field.name === "email") {
+        if (field.type === "email") {
             if (!isValidEmail(field.value)) {
                 validateMessage(field, error, 'Please enter valid ');
             }
         }
 
-        if (field.name === "url") {
+        if (field.type === "tel") {
+            if (!isValidPhone(field.value)) {
+                validateMessage(field, error, 'Please enter valid ');
+            } 
+        }
+
+        if (field.type === "url") {
             if (!isValidUrl(field.value)) {
                 validateMessage(field, error, 'Please enter valid ');
             };
