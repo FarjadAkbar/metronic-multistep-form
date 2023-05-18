@@ -308,11 +308,11 @@
             }
         }
 
-        if (field.type === "tel") {
-            if (!isValidPhone(field.value)) {
-                validateMessage(field, error, 'Please enter valid ');
-            } 
-        }
+        // if (field.type === "tel") {
+        //     if (!isValidPhone(field.value)) {
+        //         validateMessage(field, error, 'Please enter valid ');
+        //     } 
+        // }
 
         if (field.type === "url") {
             if (!isValidUrl(field.value)) {
